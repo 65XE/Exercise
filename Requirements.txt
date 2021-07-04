@@ -1,0 +1,59 @@
+﻿/*
+* Requirements:
+* 
+Please complete the below exercise to create a cache of order information for various
+securities on a trading platform.
+
+Code should be written in C++ (C++11 or later).
+Code must compile and run.
+Add appropriate tests to verify your implementation.
+
+Include all source code as part of your solution.
+
+
+-----------------------
+Order cache exercise
+-----------------------
+
+Required order information: 
+Order ID (string)     // e.g  "ID1" (unique id for order)
+Security ID (string)  // e.g. "US9128473801"
+Side (string)         // e.g. “Buy” or “Sell” 
+Quantity (int)        // e.g. 120000
+User ID (string)      // e.g. “John Smith” 
+Company Name (string) // e.g. “Hedge Fund A” (company of User ID)
+
+Example set of orders:
+OrdId1 US9128473801 Buy  1000 User1 CompanyA
+OrdId2 US5422358DA3 Sell 3000 User2 CompanyB
+OrdId3 US9128473801 Sell  500 User3 CompanyA
+OrdId4 US5422358DA3 Buy   600 User4 CompanyC
+OrdId5 US5422358DA3 Buy   100 User5 CompanyB
+OrdId6 US19635GY645 Buy  1000 User6 CompanyD
+OrdId7 US5422358DA3 Buy  2000 User7 CompanyE
+OrdId8 US5422358DA3 Sell 5000 User8 CompanyE
+
+
+Design and implement the cache. The cache should support:
+
+-	Adding orders
+o	Function to add a single order to the cache  (ok, jest pomysl, done)
+
+-	Cancelling orders
+o	Cancel single order by Order ID (ok, jest pomysl, done)
+o	Cancel all orders for a given User ID  (ok, jest pomysl, done)
+o	Cancel all orders for a given Security ID at or above a given quantity (ok, jest pomysl)
+
+-	Order matching opportunities for a Security ID
+o	Given a Security ID, return total quantity that can match
+o	Can only match a Buy order with a Sell order
+o	Buy order can match against multiple Sell orders (and vice versa) if quantity allows
+o	Any order quantity already allocated to a match cannot be reused as a match against a different order
+o	Users in the same company cannot match against each other
+o	E.g. given Security ID US5422358DA3
+	OrdId2 matches quantity 600 against OrdId4 and quantity 2000 against OrdId7 for a total quantity of 2600
+	OrdId8 matches quantity 100 against OrdId5 only 
+	OrdId4 had its quantity fully allocated to match OrdId2 so none is left for the remaining 4900 of OrdId8
+	Total quantity matched is 2700.  (2600 + 100) 
+
+*/

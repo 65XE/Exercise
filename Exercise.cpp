@@ -26,6 +26,7 @@ int main()
 	Exercise::Order order6("OrdId6", "US19635GY645", "Buy", 1000, "User6", "CompanyD");
 	Exercise::Order order7("OrdId7", "US5422358DA3", "Buy", 2000, "User7", "CompanyE");
 	Exercise::Order order8("OrdId8", "US5422358DA3", "Sell", 5000, "User8", "CompanyE");
+	Exercise::Order order9("OrdId9", "US19635GY645", "Sell", 1000, "User1", "CompanyD");
 
 	Exercise::Cache cache(order1);
 	cache += order2;
@@ -35,12 +36,26 @@ int main()
 	cache += order6;
 	cache.add(order7);
 	cache += order8;
+	cache.add(order9);
 
 	auto result = cache.get_orders();
 
 	for (auto&& e : result)
 		e.print();
 
+	std::cout << "Before cancel OrdId4:\n";
+	cache.print();
+	cache.cancel("OrdId4");
+
+	std::cout << "After cancel OrdId4:\n";
+	cache.print();
+
+	std::cout << "After cancel_all_securities US5422358DA3:\n";
+	cache.cancel_all_securities("US5422358DA3");
+	cache.print();
+
+	std::cout << "After cancel_all_for_user_id User1:\n";
+	cache.cancel_all_for_user_id("User1");
 	cache.print();
 
 	std::cout << "Exercise end\n";

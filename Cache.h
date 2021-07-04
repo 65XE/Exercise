@@ -22,13 +22,15 @@ namespace Exercise
 
 		void print();
 
-		void cancel(const OrderId& orderId);
+		void cancel(const OrderId& order_id);
 
 		//void cancel_all(const UserId& userId);
 
 		//void cancel_all(const SecurityId& securityId);
 
-		void cancel_all(const std::string& val);
+		void cancel_all_securities(const SecurityId& val);
+
+		void cancel_all_for_user_id(const UserId& val);
 
 		Quantity match(const SecurityId& securityId) const;
 	};

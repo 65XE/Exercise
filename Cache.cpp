@@ -1,4 +1,5 @@
 #include "Cache.h"
+#include <algorithm>
 
 namespace Exercise
 {
@@ -35,14 +36,23 @@ namespace Exercise
 			}
 		}
 	}
-	void Cache::cancel(const OrderId& orderId)
+	void Cache::cancel(const OrderId& order_id)
 	{
-		//todo
+		auto itr = std::remove_if(orders_.begin(), orders_.end(), [&order_id](Order& o) {return o.order_id_ == order_id; });
+		orders_.erase(itr, orders_.end());
 	}
-	void Cache::cancel_all(const std::string& val)
+	void Cache::cancel_all_securities(const SecurityId& val)
 	{
-		//todo
+		auto itr = std::remove_if(orders_.begin(), orders_.end(), [&val](Order& o) {return o.params_.security_id_ == val; });
+		orders_.erase(itr, orders_.end());
 	}
+
+	void Cache::cancel_all_for_user_id(const UserId& val)
+	{
+		auto itr = std::remove_if(orders_.begin(), orders_.end(), [&val](Order& o) {return o.params_.user_id_ == val; });
+		orders_.erase(itr, orders_.end());
+	}
+
 	Quantity Cache::match(const SecurityId& securityId) const
 	{
 		//todo
