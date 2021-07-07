@@ -40,9 +40,9 @@ Design and implement the cache. The cache should support:
 o	Function to add a single order to the cache  (ok, jest pomysl, done)
 
 -	Cancelling orders
-o	Cancel single order by Order ID (ok, jest pomysl, done)
-o	Cancel all orders for a given User ID  (ok, jest pomysl, done)
-o	Cancel all orders for a given Security ID at or above a given quantity (ok, jest pomysl)
+o	Cancel single order by Order ID
+o	Cancel all orders for a given User ID
+o	Cancel all orders for a given Security ID at or above a given quantity
 
 -	Order matching opportunities for a Security ID
 o	Given a Security ID, return total quantity that can match

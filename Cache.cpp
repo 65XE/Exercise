@@ -1,24 +1,23 @@
-#include "Cache.h"
+﻿#include "Cache.h"
 #include <algorithm>
 
 namespace Exercise
 {
-	Cache::Cache(const Order& order) : orders_{order} {}
+	Cache::Cache(const Order& order) : 
+		orders_{ {order.order_id_, order.params_} } {}
 	
 	Cache::~Cache() {}
 	
-	std::vector<Order> Cache::get_orders() const 
-	{
-		return orders_;
-	}
 	void Cache::add(const Order& order)
 	{
-		orders_.push_back(order);
+		orders_.insert_or_assign(order.order_id_, order.params_);
 	}
 	void Cache::operator+=(const Order& order)
 	{
-		orders_.push_back(order);
+		orders_.insert_or_assign(order.order_id_, order.params_);
 	}
+
+	//pk-test to remove
 	void Cache::print()
 	{
 		std::cout << "\n-----------------\n";
@@ -26,36 +25,106 @@ namespace Exercise
 
 		for (const auto& e : orders_)
 		{
-			for (const auto& [key, value] : e.order_map_)
-			{
-				std::cout << key << " " << value.security_id_
-					<< " " << value.sell_
-					<< " " << value.quantity_
-					<< " " << value.user_id_
-					<< " " << value.c_name_ << std::endl;
-			}
+			
+				std::cout << e.first << " " << e.second.security_id_
+					<< " " << e.second.sell_
+					<< " " << e.second.quantity_
+					<< " " << e.second.user_id_
+					<< " " << e.second.c_name_ << "\n";
+
 		}
 	}
 	void Cache::cancel(const OrderId& order_id)
 	{
-		auto itr = std::remove_if(orders_.begin(), orders_.end(), [&order_id](Order& o) {return o.order_id_ == order_id; });
-		orders_.erase(itr, orders_.end());
-	}
-	void Cache::cancel_all_securities(const SecurityId& val)
-	{
-		auto itr = std::remove_if(orders_.begin(), orders_.end(), [&val](Order& o) {return o.params_.security_id_ == val; });
-		orders_.erase(itr, orders_.end());
+		orders_.erase(orders_.find(order_id));
 	}
 
-	void Cache::cancel_all_for_user_id(const UserId& val)
+	void Cache::cancel_all_securities(const SecurityId& security, const Quantity quantity)
 	{
-		auto itr = std::remove_if(orders_.begin(), orders_.end(), [&val](Order& o) {return o.params_.user_id_ == val; });
-		orders_.erase(itr, orders_.end());
+		for (auto it = orders_.begin(); it != orders_.end();)
+		{
+			if (it->second.security_id_ == security && it->second.quantity_ >= quantity)
+			{
+				it = orders_.erase(it);
+			}
+			else
+				++it;
+		}
 	}
+
+	void Cache::cancel_all_for_user_id(const UserId& user_id)
+	{
+		for (auto it = orders_.begin(); it != orders_.end();)
+		{
+			if (it->second.user_id_ == user_id)
+			{
+				it = orders_.erase(it);
+			}
+			else
+				++it;
+		}
+	}
+
+	/*template<typename T>
+	void Cache::cancel_field(const T& t)
+	{
+		for (auto it = orders_.begin(); it != orders_.end();)
+		{
+			if (it->second.t == t)
+			{
+				it = orders_.erase(it);
+			}
+			else
+				++it;
+		}
+	}*/
+
 
 	Quantity Cache::match(const SecurityId& securityId) const
 	{
-		//todo
-		return Quantity();
+		Quantity total_quant = 0;
+		std::map<OrderId, Params> tmp;
+
+		for (auto&& e : orders_)
+		{
+			if (e.second.security_id_ == securityId)
+			{
+				tmp.insert_or_assign(e.first, e.second);
+			}
+		}
+
+		for (auto it = tmp.begin(); it != tmp.end();)
+		{
+			if (it->second.sell_ == "Buy")
+			{
+				++it;
+				continue;
+			}
+			for (auto it2 = tmp.begin(); it2 != tmp.end();)
+			{
+				if (it->first == it2->first 
+					|| it->second.sell_ == it2->second.sell_ 
+					|| it->second.c_name_ == it2->second.c_name_)
+				{
+					++it2;
+					continue;
+				}
+				total_quant += it2->second.quantity_;
+				if (it->second.quantity_ >= it2->second.quantity_)
+				{
+					it->second.quantity_ -= it2->second.quantity_;
+					it2->second.quantity_ = 0;
+				}
+				else
+				{
+					it->second.quantity_ = 0;
+					it2->second.quantity_ -= it->second.quantity_;
+				}
+				++it2;
+			}
+			++it;
+		}
+		return total_quant;
 	}
+
 }

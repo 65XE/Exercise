@@ -2,11 +2,12 @@
 //
 
 #include <iostream>
+#include <algorithm>
 #include "Cache.h"
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::cout << "Lets begin our exercise!\n";
 
 	/*std::vector<Exercise::Order> orders{
 		{"OrdId1", "US9128473801", "Buy",  1000, "User1", "CompanyA"},
@@ -38,26 +39,29 @@ int main()
 	cache += order8;
 	cache.add(order9);
 
-	auto result = cache.get_orders();
 
-	for (auto&& e : result)
-		e.print();
-
-	std::cout << "Before cancel OrdId4:\n";
-	cache.print();
-	cache.cancel("OrdId4");
-
-	std::cout << "After cancel OrdId4:\n";
+	std::cout << "At the beginning : \n";
 	cache.print();
 
-	std::cout << "After cancel_all_securities US5422358DA3:\n";
-	cache.cancel_all_securities("US5422358DA3");
+	std::cout << "\nPoint 1. Testing match func: \nResult of cache.match(\"US5422358DA3\") = "
+		<< cache.match("US5422358DA3") << "\n";
+
+	std::cout << "\nPoint 2. Testting cancel* functionalities:\n";
+
+	std::cout << "Before cancel OrdId3:\n";
+	cache.print();
+	cache.cancel("OrdId3");
+
+	std::cout << "\nAfter cancel OrdId3:\n";
 	cache.print();
 
-	std::cout << "After cancel_all_for_user_id User1:\n";
+	std::cout << "\nAfter cancel_all_securities US5422358DA3 (quant 1200 or above):\n";
+	cache.cancel_all_securities("US5422358DA3", 1200);
+	cache.print();
+
+	std::cout << "\nAfter cancel_all_for_user_id User1:\n";
 	cache.cancel_all_for_user_id("User1");
 	cache.print();
 
-	std::cout << "Exercise end\n";
-
+	std::cout << "\nExercise end. Thank you.\n";
 }
