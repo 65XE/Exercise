@@ -1,7 +1,7 @@
 #pragma once
 #include "Order.h"
 #include <map>
-#include <iostream>
+#include "Types.h"
 
 namespace Exercise
 {
@@ -25,7 +25,7 @@ namespace Exercise
 		void add(OrderId order_id, SecurityId security_id, Sell sell, Quantity quantity,
 			UserId user_id, CompanyName c_name);
 
-		void operator +=(const Order& order);
+		void add(const Order& order);
 
 		void print() const;
 
@@ -36,6 +36,8 @@ namespace Exercise
 		void cancel_all_for_user_id(const UserId& user_id);
 
 		bool check_if_order_exist(const OrderId& order_id) const;
+
+		size_t get_size() const;
 
 		Quantity match(const SecurityId& security_id);
 	};

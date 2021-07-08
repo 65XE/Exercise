@@ -37,7 +37,7 @@ OrdId8 US5422358DA3 Sell 5000 User8 CompanyE
 Design and implement the cache. The cache should support:
 
 -	Adding orders
-o	Function to add a single order to the cache  (ok, jest pomysl, done)
+o	Function to add a single order to the cache
 
 -	Cancelling orders
 o	Cancel single order by Order ID

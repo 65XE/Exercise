@@ -1,4 +1,5 @@
 ﻿#include "Cache.h"
+#include <iostream>
 
 namespace Exercise
 {
@@ -16,14 +17,13 @@ namespace Exercise
 		orders_.insert_or_assign(order_id, p);
 	}
 
-	void Cache::operator+=(const Order& order)
+	void Cache::add(const Order& order)
 	{
 		orders_.insert_or_assign(order.order_id_, order.params_);
 	}
 
 	void Cache::print() const
 	{
-		std::cout << "\n-----------------\n";
 		std::cout << "\nCache content :\n";
 
 		for (const auto& e : orders_)
@@ -53,13 +53,6 @@ namespace Exercise
 			else
 				++it;
 		}
-		/*for (const auto& e : orders_)
-		{
-			if (e.second.security_id_ == security && e.second.quantity_ >= quantity)
-			{
-				orders_.erase(orders_.find(e.first));
-			}
-		}*/
 	}
 
 	void Cache::cancel_all_for_user_id(const UserId& user_id)
@@ -73,15 +66,16 @@ namespace Exercise
 			else
 				++it;
 		}
-		/*for (const auto& e : orders_)
-		{
-			if (e.second.user_id_ == user_id) { orders_.erase(orders_.find(e.first)); }
-		}*/
 	}
 
 	bool Cache::check_if_order_exist(const OrderId& order_id) const
 	{
 		return (orders_.find(order_id) != orders_.end()) ? true : false;
+	}
+
+	size_t Cache::get_size() const
+	{
+		return orders_.size();
 	}
 
 	Quantity Cache::match(const SecurityId& security_id)
