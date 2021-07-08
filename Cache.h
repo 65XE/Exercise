@@ -1,6 +1,7 @@
 #pragma once
 #include "Order.h"
 #include <map>
+#include <iostream>
 
 namespace Exercise
 {
@@ -9,22 +10,24 @@ namespace Exercise
 	private:
 		std::map<OrderId, Params> orders_;
 
-		template<typename T>
-		void cancel_field(const T& t);
-
 	public:
 		Cache(const Order& order);
-		
-		~Cache();
 
-		//std::vector<Order> get_orders() const;
+		Cache(OrderId order_id, SecurityId security_id, Sell sell, Quantity quantity,
+			UserId user_id, CompanyName c_name);
 
-		void add(const Order& order);
+		Cache(Cache const& other) = default;
+		Cache(Cache&& other) = default;
+		Cache& operator=(Cache&& other) = default;
+		Cache& operator=(Cache const& other) = default;
+		~Cache() = default;
+
+		void add(OrderId order_id, SecurityId security_id, Sell sell, Quantity quantity,
+			UserId user_id, CompanyName c_name);
 
 		void operator +=(const Order& order);
 
-		//pk-test to remove
-		void print();
+		void print() const;
 
 		void cancel(const OrderId& order_id);
 
@@ -32,8 +35,9 @@ namespace Exercise
 
 		void cancel_all_for_user_id(const UserId& user_id);
 
-		Quantity match(const SecurityId& security_id) const;
+		bool check_if_order_exist(const OrderId& order_id) const;
 
+		Quantity match(const SecurityId& security_id);
 	};
 }
 

@@ -1,17 +1,8 @@
 #pragma once
 #include "Types.h"
-#include <map>
 
 namespace Exercise
 {
-	struct Params
-	{
-		SecurityId  security_id_;
-		Sell		sell_;
-		Quantity	quantity_;
-		UserId		user_id_;
-		CompanyName c_name_;
-	};
 
 	struct Order
 	{

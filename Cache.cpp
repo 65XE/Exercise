@@ -1,39 +1,42 @@
 ﻿#include "Cache.h"
-#include <algorithm>
 
 namespace Exercise
 {
 	Cache::Cache(const Order& order) : 
 		orders_{ {order.order_id_, order.params_} } {}
-	
-	Cache::~Cache() {}
-	
-	void Cache::add(const Order& order)
+
+	Cache::Cache(OrderId order_id, SecurityId security_id, Sell sell, Quantity quantity,
+		UserId user_id, CompanyName c_name) :
+		orders_{ {order_id, {security_id, sell, quantity, user_id, c_name}} } {}
+
+	void Cache::add(OrderId order_id, SecurityId security_id, Sell sell, Quantity quantity,
+		UserId user_id, CompanyName c_name)
 	{
-		orders_.insert_or_assign(order.order_id_, order.params_);
+		const Params& p{ security_id, sell, quantity, user_id, c_name };
+		orders_.insert_or_assign(order_id, p);
 	}
+
 	void Cache::operator+=(const Order& order)
 	{
 		orders_.insert_or_assign(order.order_id_, order.params_);
 	}
 
-	//pk-test to remove
-	void Cache::print()
+	void Cache::print() const
 	{
 		std::cout << "\n-----------------\n";
-		std::cout << "\nPrint from Cache:\n";
+		std::cout << "\nCache content :\n";
 
 		for (const auto& e : orders_)
 		{
 			
-				std::cout << e.first << " " << e.second.security_id_
-					<< " " << e.second.sell_
-					<< " " << e.second.quantity_
-					<< " " << e.second.user_id_
-					<< " " << e.second.c_name_ << "\n";
-
+			std::cout << e.first << " " << e.second.security_id_
+				<< " " << e.second.sell_
+				<< " " << e.second.quantity_
+				<< " " << e.second.user_id_
+				<< " " << e.second.c_name_ << "\n";
 		}
 	}
+
 	void Cache::cancel(const OrderId& order_id)
 	{
 		orders_.erase(orders_.find(order_id));
@@ -50,6 +53,13 @@ namespace Exercise
 			else
 				++it;
 		}
+		/*for (const auto& e : orders_)
+		{
+			if (e.second.security_id_ == security && e.second.quantity_ >= quantity)
+			{
+				orders_.erase(orders_.find(e.first));
+			}
+		}*/
 	}
 
 	void Cache::cancel_all_for_user_id(const UserId& user_id)
@@ -63,48 +73,34 @@ namespace Exercise
 			else
 				++it;
 		}
+		/*for (const auto& e : orders_)
+		{
+			if (e.second.user_id_ == user_id) { orders_.erase(orders_.find(e.first)); }
+		}*/
 	}
 
-	/*template<typename T>
-	void Cache::cancel_field(const T& t)
+	bool Cache::check_if_order_exist(const OrderId& order_id) const
 	{
-		for (auto it = orders_.begin(); it != orders_.end();)
-		{
-			if (it->second.t == t)
-			{
-				it = orders_.erase(it);
-			}
-			else
-				++it;
-		}
-	}*/
+		return (orders_.find(order_id) != orders_.end()) ? true : false;
+	}
 
-
-	Quantity Cache::match(const SecurityId& securityId) const
+	Quantity Cache::match(const SecurityId& security_id)
 	{
 		Quantity total_quant = 0;
-		std::map<OrderId, Params> tmp;
 
-		for (auto&& e : orders_)
+		for (auto it = orders_.begin(); it != orders_.end();)
 		{
-			if (e.second.security_id_ == securityId)
-			{
-				tmp.insert_or_assign(e.first, e.second);
-			}
-		}
-
-		for (auto it = tmp.begin(); it != tmp.end();)
-		{
-			if (it->second.sell_ == "Buy")
+			if (it->second.sell_ == "Buy" || it->second.security_id_ != security_id )
 			{
 				++it;
 				continue;
 			}
-			for (auto it2 = tmp.begin(); it2 != tmp.end();)
+			for (auto it2 = orders_.begin(); it2 != orders_.end();)
 			{
-				if (it->first == it2->first 
-					|| it->second.sell_ == it2->second.sell_ 
-					|| it->second.c_name_ == it2->second.c_name_)
+				if (it->first == it2->first
+					|| it->second.sell_ == it2->second.sell_
+					|| it->second.c_name_ == it2->second.c_name_
+					|| it2->second.security_id_ != security_id)
 				{
 					++it2;
 					continue;
@@ -126,5 +122,4 @@ namespace Exercise
 		}
 		return total_quant;
 	}
-
 }

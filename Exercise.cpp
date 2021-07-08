@@ -2,65 +2,43 @@
 //
 
 #include <iostream>
-#include <algorithm>
 #include "Cache.h"
+
+Exercise::Cache prepare_cache()
+{
+	Exercise::Cache cache("OrdId1", "US9128473801", "Buy", 1000, "User1", "CompanyA");
+	cache.add("OrdId2", "US5422358DA3", "Sell", 3000, "User2", "CompanyB");
+	cache.add("OrdId3", "US9128473801", "Sell", 500, "User3", "CompanyA");
+	cache.add("OrdId4", "US5422358DA3", "Buy", 600, "User4", "CompanyC");
+	cache.add("OrdId5", "US5422358DA3", "Buy", 100, "User5", "CompanyB");
+	cache.add("OrdId6", "US19635GY645", "Buy", 1000, "User6", "CompanyD");
+	cache.add("OrdId7", "US5422358DA3", "Buy", 2000, "User7", "CompanyE");
+	cache.add("OrdId8", "US5422358DA3", "Sell", 5000, "User8", "CompanyE");
+	cache.add("OrdId9", "US19635GY645", "Sell", 1000, "User1", "CompanyD");
+	cache.add("OrdId999", "US19635GY999", "Buy", 10000, "User1", "CompanyX");
+	return cache;
+}
 
 int main()
 {
     std::cout << "Lets begin our exercise!\n";
 
-	/*std::vector<Exercise::Order> orders{
-		{"OrdId1", "US9128473801", "Buy",  1000, "User1", "CompanyA"},
-		{"OrdId2", "US5422358DA3", "Sell", 3000, "User2", "CompanyB"},
-		{"OrdId3", "US9128473801", "Sell",  500, "User3", "CompanyA"},
-		{"OrdId4", "US5422358DA3", "Buy", 600, "User4", "CompanyC"},
-		{"OrdId5", "US5422358DA3", "Buy", 100, "User5", "CompanyB"},
-		{"OrdId6", "US19635GY645", "Buy", 1000, "User6", "CompanyD"},
-		{"OrdId7", "US5422358DA3", "Buy", 2000, "User7", "CompanyE"},
-		{"OrdId8", "US5422358DA3", "Sell", 5000, "User8", "CompanyE"}
-	};*/
-	Exercise::Order order1("OrdId1", "US9128473801", "Buy", 1000, "User1", "CompanyA");
-	Exercise::Order order2("OrdId2", "US5422358DA3", "Sell", 3000, "User2", "CompanyB");
-	Exercise::Order order3("OrdId3", "US9128473801", "Sell", 500, "User3", "CompanyA");
-	Exercise::Order order4("OrdId4", "US5422358DA3", "Buy", 600, "User4", "CompanyC");
-	Exercise::Order order5("OrdId5", "US5422358DA3", "Buy", 100, "User5", "CompanyB");
-	Exercise::Order order6("OrdId6", "US19635GY645", "Buy", 1000, "User6", "CompanyD");
-	Exercise::Order order7("OrdId7", "US5422358DA3", "Buy", 2000, "User7", "CompanyE");
-	Exercise::Order order8("OrdId8", "US5422358DA3", "Sell", 5000, "User8", "CompanyE");
-	Exercise::Order order9("OrdId9", "US19635GY645", "Sell", 1000, "User1", "CompanyD");
-
-	Exercise::Cache cache(order1);
-	cache += order2;
-	cache.add(order3);
-	cache += order4;
-	cache.add(order5);
-	cache += order6;
-	cache.add(order7);
-	cache += order8;
-	cache.add(order9);
-
+	//only for simple console out tests
+	auto cache = prepare_cache();
 
 	std::cout << "At the beginning : \n";
 	cache.print();
 
-	std::cout << "\nPoint 1. Testing match func: \nResult of cache.match(\"US5422358DA3\") = "
+	std::cout << "\nPoint 1. match func: \nResult of cache.match(\"US5422358DA3\") = "
 		<< cache.match("US5422358DA3") << "\n";
 
-	std::cout << "\nPoint 2. Testting cancel* functionalities:\n";
+	std::cout << "\nPoint 2. cancel* functionalities:\n";
 
 	std::cout << "Before cancel OrdId3:\n";
 	cache.print();
 	cache.cancel("OrdId3");
 
 	std::cout << "\nAfter cancel OrdId3:\n";
-	cache.print();
-
-	std::cout << "\nAfter cancel_all_securities US5422358DA3 (quant 1200 or above):\n";
-	cache.cancel_all_securities("US5422358DA3", 1200);
-	cache.print();
-
-	std::cout << "\nAfter cancel_all_for_user_id User1:\n";
-	cache.cancel_all_for_user_id("User1");
 	cache.print();
 
 	std::cout << "\nExercise end. Thank you.\n";
