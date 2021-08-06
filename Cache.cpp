@@ -44,6 +44,7 @@ namespace Exercise
 
 	void Cache::cancel_all_securities(const SecurityId& security, const Quantity quantity)
 	{
+		//C++1x version
 		for (auto it = orders_.begin(); it != orders_.end();)
 		{
 			if (it->second.security_id_ == security && it->second.quantity_ >= quantity)
@@ -53,10 +54,17 @@ namespace Exercise
 			else
 				++it;
 		}
+
+		//C++20 version
+		/*std::erase_if(orders_, [&security, quantity](const auto& item) {
+			auto const& [key, value] = item;
+			if (value.security_id_ == security && value.quantity_ >= quantity) return true; });*/
+		
 	}
 
 	void Cache::cancel_all_for_user_id(const UserId& user_id)
 	{
+		//C++1x version
 		for (auto it = orders_.begin(); it != orders_.end();)
 		{
 			if (it->second.user_id_ == user_id)
@@ -66,6 +74,11 @@ namespace Exercise
 			else
 				++it;
 		}
+
+		//C++20 version
+		/*std::erase_if(orders_, [&user_id](const auto& item) {
+			auto const& [key, value] = item;
+			if (value.user_id_ == user_id) return true; });*/
 	}
 
 	bool Cache::check_if_order_exist(const OrderId& order_id) const
