@@ -16,7 +16,6 @@ Exercise::Cache prepare_cache()
 	cache.add("OrdId8", "US5422358DA3", "Sell", 5000, "User8", "CompanyE");
 	cache.add("OrdId9", "US19635GY645", "Sell", 1000, "User1", "CompanyD");
 	cache.add("OrdId999", "US19635GY999", "Buy", 10000, "User1", "CompanyX");
-	cache.add("OrdId102", "US19635GY999", "Buy", 200, "User9", "CompanyX");
 
 	Exercise::Order order("OrdId65", "US19635GY999", "Sell", 10000, "User10", "CompanyY");
 	cache.add(order);

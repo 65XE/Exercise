@@ -13,16 +13,10 @@ namespace Exercise
 	public:
 		Cache(const Order& order);
 
-		Cache(OrderId order_id, SecurityId security_id, Sell sell, Quantity quantity,
+		Cache(OrderId order_id, SecurityId security_id, Side sell, Quantity quantity,
 			UserId user_id, CompanyName c_name);
 
-		Cache(Cache const& other) = default;
-		Cache(Cache&& other) = default;
-		Cache& operator=(Cache&& other) = default;
-		Cache& operator=(Cache const& other) = default;
-		~Cache() = default;
-
-		void add(OrderId order_id, SecurityId security_id, Sell sell, Quantity quantity,
+		void add(OrderId order_id, SecurityId security_id, Side sell, Quantity quantity,
 			UserId user_id, CompanyName c_name);
 
 		void add(const Order& order);
