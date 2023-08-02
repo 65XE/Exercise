@@ -44,17 +44,6 @@ namespace Exercise
 
 	void Cache::cancel_all_securities(const SecurityId& security, const Quantity quantity)
 	{
-		//C++1x version
-		/*for (auto it = orders_.begin(); it != orders_.end();)
-		{
-			if (it->second.security_id_ == security && it->second.quantity_ >= quantity)
-			{
-				it = orders_.erase(it);
-			}
-			else
-				++it;
-		}*/
-
 		//C++20 version
 		const auto cnt = std::erase_if(orders_, [&security, quantity](const auto& item) {
 			auto const& [key, value] = item;
@@ -68,18 +57,6 @@ namespace Exercise
 
 	void Cache::cancel_all_for_user_id(const UserId& user_id)
 	{
-		////C++1x version
-		/*for (auto it = orders_.begin(); it != orders_.end();)
-		{
-			if (it->second.user_id_ == user_id)
-			{
-				std::cout << "Usuwam " << it->second.user_id_ << " poniewaz argumentem do funkcji bylo " << user_id << std::endl;
-				it = orders_.erase(it);
-			}
-			else
-				++it;
-		}*/
-
 		//C++20 version
 		std::erase_if(orders_, [&user_id](const auto& item) {
 			auto const& [key, value] = item;
