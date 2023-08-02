@@ -10,6 +10,8 @@ namespace Exercise
 	private:
 		std::map<OrderId, Params> orders_;
 
+		Quantity compute_quantity(std::pair<OrderId, Params> order, const SecurityId& security_id);
+
 	public:
 		Cache(const Order& order);
 

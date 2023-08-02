@@ -86,28 +86,35 @@ namespace Exercise
 			{
 				continue;
 			}
-			for (auto& it2 : orders_)
-			{
-				if (it.first == it2.first
-					|| it.second.side_ == it2.second.side_
-					|| it.second.c_name_ == it2.second.c_name_
-					|| it2.second.security_id_ != security_id)
-				{
-					continue;
-				}
-				total_quant += it2.second.quantity_;
-				if (it.second.quantity_ >= it2.second.quantity_)
-				{
-					it.second.quantity_ -= it2.second.quantity_;
-					it2.second.quantity_ = 0;
-				}
-				else
-				{
-					it.second.quantity_ = 0;
-					it2.second.quantity_ -= it.second.quantity_;
-				}
-			}
+			total_quant += compute_quantity(it, security_id);
 		}
 		return total_quant;
 	}
+	Quantity Cache::compute_quantity(std::pair<OrderId, Params> order, const SecurityId& security_id) 
+	{
+		auto quant = 0;
+		for (auto& another : orders_)
+			{
+				if (order.first == another.first
+					|| order.second.side_ == another.second.side_
+					|| order.second.c_name_ == another.second.c_name_
+					|| another.second.security_id_ != security_id)
+				{
+					continue;
+				}
+				quant += another.second.quantity_;
+				if (order.second.quantity_ >= another.second.quantity_)
+				{
+					order.second.quantity_ -= another.second.quantity_;
+					another.second.quantity_ = 0;
+				}
+				else
+				{
+					order.second.quantity_ = 0;
+					another.second.quantity_ -= order.second.quantity_;
+				}
+			}
+		return quant;
+	}
+
 }
