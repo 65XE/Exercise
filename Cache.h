@@ -1,6 +1,5 @@
 #pragma once
 #include "Order.h"
-#include <map>
 #include <unordered_map>
 #include "Types.h"
 
@@ -9,7 +8,7 @@ namespace Exercise
 	class Cache
 	{
 	private:
-		std::unordered_map<OrderId, Params> orders_;
+		Orders orders_;
 
 		Quantity compute_quantity(std::pair<OrderId, Params> order, const SecurityId& security_id);
 

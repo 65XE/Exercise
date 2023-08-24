@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <unordered_map>
 
 using OrderId = std::string;
 using SecurityId = std::string;
@@ -17,3 +18,4 @@ struct Params
 	CompanyName c_name_;
 };
 
+using Orders = std::unordered_map<OrderId, Params>;
