@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31424.327
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34018.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Exercise", "Exercise.vcxproj", "{D6FC3780-3A91-4883-8EF6-F5ED74F2DEF0}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Exercise_Tests", "..\Exercise_Tests\Exercise_Tests.vcxproj", "{BE9770D1-8C87-424C-8464-6D28C3D499B2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Exercise_Tests", "..\Exercise_Tests\Exercise_Tests.vcxproj", "{98E204D8-E97F-4598-B245-45418B463EBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,14 +23,14 @@ Global
 		{D6FC3780-3A91-4883-8EF6-F5ED74F2DEF0}.Release|x64.Build.0 = Release|x64
 		{D6FC3780-3A91-4883-8EF6-F5ED74F2DEF0}.Release|x86.ActiveCfg = Release|Win32
 		{D6FC3780-3A91-4883-8EF6-F5ED74F2DEF0}.Release|x86.Build.0 = Release|Win32
-		{BE9770D1-8C87-424C-8464-6D28C3D499B2}.Debug|x64.ActiveCfg = Debug|x64
-		{BE9770D1-8C87-424C-8464-6D28C3D499B2}.Debug|x64.Build.0 = Debug|x64
-		{BE9770D1-8C87-424C-8464-6D28C3D499B2}.Debug|x86.ActiveCfg = Debug|Win32
-		{BE9770D1-8C87-424C-8464-6D28C3D499B2}.Debug|x86.Build.0 = Debug|Win32
-		{BE9770D1-8C87-424C-8464-6D28C3D499B2}.Release|x64.ActiveCfg = Release|x64
-		{BE9770D1-8C87-424C-8464-6D28C3D499B2}.Release|x64.Build.0 = Release|x64
-		{BE9770D1-8C87-424C-8464-6D28C3D499B2}.Release|x86.ActiveCfg = Release|Win32
-		{BE9770D1-8C87-424C-8464-6D28C3D499B2}.Release|x86.Build.0 = Release|Win32
+		{98E204D8-E97F-4598-B245-45418B463EBA}.Debug|x64.ActiveCfg = Debug|x64
+		{98E204D8-E97F-4598-B245-45418B463EBA}.Debug|x64.Build.0 = Debug|x64
+		{98E204D8-E97F-4598-B245-45418B463EBA}.Debug|x86.ActiveCfg = Debug|Win32
+		{98E204D8-E97F-4598-B245-45418B463EBA}.Debug|x86.Build.0 = Debug|Win32
+		{98E204D8-E97F-4598-B245-45418B463EBA}.Release|x64.ActiveCfg = Release|x64
+		{98E204D8-E97F-4598-B245-45418B463EBA}.Release|x64.Build.0 = Release|x64
+		{98E204D8-E97F-4598-B245-45418B463EBA}.Release|x86.ActiveCfg = Release|Win32
+		{98E204D8-E97F-4598-B245-45418B463EBA}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

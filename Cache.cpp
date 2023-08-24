@@ -39,7 +39,11 @@ namespace Exercise
 
 	void Cache::cancel(const OrderId& order_id)
 	{
-		orders_.erase(orders_.find(order_id));
+		auto order = orders_.find(order_id);
+		if (order != std::end(orders_))
+			orders_.erase(order);
+		else
+			std::cout << "There is no " << order_id << " present in the cache.\n";
 	}
 
 	void Cache::cancel_all_securities(const SecurityId& security, const Quantity quantity)
@@ -69,7 +73,7 @@ namespace Exercise
 
 	bool Cache::check_if_order_exist(const OrderId& order_id) const
 	{
-		return (orders_.find(order_id) != orders_.end()) ? true : false;
+		return (orders_.find(order_id) != std::end(orders_)) ? true : false;
 	}
 
 	size_t Cache::get_size() const
