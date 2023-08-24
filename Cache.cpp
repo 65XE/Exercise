@@ -112,11 +112,6 @@ namespace Exercise
 					order.second.quantity_ -= another.second.quantity_;
 					another.second.quantity_ = 0;
 				}
-				else
-				{
-					order.second.quantity_ = 0;
-					another.second.quantity_ -= order.second.quantity_;
-				}
 			}
 		return quant;
 	}
